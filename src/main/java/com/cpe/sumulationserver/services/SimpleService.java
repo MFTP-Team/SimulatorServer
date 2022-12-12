@@ -11,8 +11,11 @@ import java.util.List;
 @Service
 public class SimpleService {
 
-    @Autowired
-    private SimpleRepository simpleRepository;
+    private final SimpleRepository simpleRepository;
+
+    public SimpleService(SimpleRepository simpleRepository) {
+        this.simpleRepository = simpleRepository;
+    }
 
     public SimpleEntityDTO getSimpleEntityDTO(String name) {
         List<SimpleEntity> list = simpleRepository.findAll();
