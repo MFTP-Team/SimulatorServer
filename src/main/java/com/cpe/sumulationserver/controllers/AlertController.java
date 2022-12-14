@@ -3,6 +3,7 @@ package com.cpe.sumulationserver.controllers;
 import com.cpe.sumulationserver.model.AlertEntity;
 import com.cpe.sumulationserver.services.AlertService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,8 +16,8 @@ public class AlertController {
     }
 
     @PostMapping("/add")
-    public void addAlert(@RequestBody AlertEntity alertEntity) {
-        alertService.addAlert(alertEntity);
+    public ResponseEntity<AlertEntity> addAlert(@RequestBody AlertEntity alertEntity) {
+        return ResponseEntity.ok(alertService.addAlert(alertEntity));
     }
 
     @PutMapping("/edit")

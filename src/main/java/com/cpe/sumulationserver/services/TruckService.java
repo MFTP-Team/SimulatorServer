@@ -1,16 +1,35 @@
 package com.cpe.sumulationserver.services;
 
 import com.cpe.sumulationserver.model.TruckEntity;
+import com.cpe.sumulationserver.repository.TruckRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class TruckService {
-    public void addTruck(TruckEntity truckEntity) {
+    private final TruckRepository truckRepository;
+
+    public TruckService(TruckRepository truckRepository) {
+        this.truckRepository = truckRepository;
+    }
+    public TruckEntity saveTruck(TruckEntity truckEntity) {
+        return this.truckRepository.save(truckEntity);
+    }
+
+    public TruckEntity getTruck(int truckId) {
+        return this.truckRepository.findById(truckId);
     }
 
     public void deleteTruck(int truckId) {
+        this.truckRepository.deleteById(truckId);
     }
 
-    public void getTruck(int truckId) {
+    public List<TruckEntity> getTrucks() {
+        return this.truckRepository.findAll();
+    }
+
+    public TruckEntity addTruck(TruckEntity truckEntity) {
+        return this.truckRepository.save(truckEntity);
     }
 }

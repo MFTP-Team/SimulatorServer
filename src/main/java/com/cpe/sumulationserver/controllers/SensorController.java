@@ -2,6 +2,7 @@ package com.cpe.sumulationserver.controllers;
 
 import com.cpe.sumulationserver.model.SensorEntity;
 import com.cpe.sumulationserver.services.SensorService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,8 +15,8 @@ public class SensorController {
     }
 
     @PostMapping("/add")
-    public void addsensor(@RequestBody SensorEntity sensorEntity) {
-        sensorService.addSensor(sensorEntity);
+    public ResponseEntity<SensorEntity> addSensor(@RequestBody SensorEntity sensorEntity) {
+        return ResponseEntity.ok(sensorService.addSensor(sensorEntity));
     }
 
     @DeleteMapping("/delete/{id}")
@@ -24,12 +25,12 @@ public class SensorController {
     }
 
     @GetMapping("/get/{id}")
-    public void getsensor(@PathVariable("id") int sensorId) {
-        sensorService.getSensor(sensorId);
+    public ResponseEntity<SensorEntity> getsensor(@PathVariable("id") int sensorId) {
+        return ResponseEntity.ok(sensorService.getSensor(sensorId));
     }
 
     @PutMapping("/edit")
-    public void editsensor(@RequestBody SensorEntity sensorEntity) {
-        sensorService.editSensor(sensorEntity);
+    public ResponseEntity<SensorEntity> editsensor(@RequestBody SensorEntity sensorEntity) {
+        return ResponseEntity.ok(sensorService.editSensor(sensorEntity));
     }
 }

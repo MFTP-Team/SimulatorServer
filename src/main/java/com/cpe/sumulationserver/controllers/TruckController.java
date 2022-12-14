@@ -2,7 +2,11 @@ package com.cpe.sumulationserver.controllers;
 
 import com.cpe.sumulationserver.model.TruckEntity;
 import com.cpe.sumulationserver.services.TruckService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.function.EntityResponse;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/intervention")
@@ -14,17 +18,27 @@ public class TruckController {
     }
 
     @PostMapping("/add")
-    public void addtruck(@RequestBody TruckEntity truckEntity) {
+    public void addTruck(@RequestBody TruckEntity truckEntity) {
         truckService.addTruck(truckEntity);
     }
 
+    @PutMapping("/edit")
+    public void editTruck(@RequestBody TruckEntity truckEntity) {
+        truckService.saveTruck(truckEntity);
+    }
+
     @DeleteMapping("/delete/{id}")
-    public void deletetruck(@PathVariable("id") int truckId) {
+    public void deleteTruck(@PathVariable("id") int truckId) {
         truckService.deleteTruck(truckId);
     }
 
+    @GetMapping("/get")
+    public ResponseEntity<List<TruckEntity>> getTrucks() {
+        return ResponseEntity.ok(truckService.getTrucks());
+    }
+
     @GetMapping("/get/{id}")
-    public void gettruck(@PathVariable("id") int truckId) {
+    public void getTruck(@PathVariable("id") int truckId) {
         truckService.getTruck(truckId);
     }
 }

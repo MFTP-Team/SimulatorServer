@@ -2,6 +2,7 @@ package com.cpe.sumulationserver.controllers;
 
 import com.cpe.sumulationserver.model.FireEntity;
 import com.cpe.sumulationserver.services.FireService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,22 +15,23 @@ public class FireController {
     }
 
     @PostMapping("/add")
-    public void addfire(@RequestBody FireEntity fireEntity) {
-        fireService.addFire(fireEntity);
+    public ResponseEntity<FireEntity> addFire(@RequestBody FireEntity fireEntity) {
+        return ResponseEntity.ok(fireService.addFire(fireEntity));
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deletefire(@PathVariable("id") int fireId) {
+    public ResponseEntity<?> deletefire(@PathVariable("id") int fireId) {
         fireService.deleteFire(fireId);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/get/{id}")
-    public void getfire(@PathVariable("id") int fireId) {
-        fireService.getFire(fireId);
+    public ResponseEntity<FireEntity> getFire(@PathVariable("id") int fireId) {
+        return ResponseEntity.ok(fireService.getFire(fireId));
     }
 
     @PutMapping("/edit")
-    public void editfire(@RequestBody FireEntity fireEntity) {
-        fireService.editFire(fireEntity);
+    public ResponseEntity<FireEntity> editFire(@RequestBody FireEntity fireEntity) {
+        return ResponseEntity.ok(fireService.editFire(fireEntity));
     }
 }
