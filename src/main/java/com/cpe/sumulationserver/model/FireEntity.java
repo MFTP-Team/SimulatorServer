@@ -14,16 +14,13 @@ public class FireEntity {
     private Integer id;
     @Basic
     @Column(name = "longitude")
-    private Float longitude;
+    private Double longitude;
     @Basic
     @Column(name = "latitude")
-    private Float latitude;
+    private Double latitude;
     @Basic
     @Column(name = "intensity")
     private Integer intensity;
-    @Basic
-    @Column(name = "status")
-    private String status;
     @OneToMany(mappedBy = "idFire")
     private Collection<AlertEntity> alertsById;
     @OneToMany(mappedBy = "idFire")
@@ -37,19 +34,19 @@ public class FireEntity {
         this.id = id;
     }
 
-    public Float getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(Float longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 
-    public Float getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(Float latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
@@ -61,25 +58,17 @@ public class FireEntity {
         this.intensity = intensity;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         FireEntity that = (FireEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(longitude, that.longitude) && Objects.equals(latitude, that.latitude) && Objects.equals(intensity, that.intensity) && Objects.equals(status, that.status);
+        return Objects.equals(id, that.id) && Objects.equals(longitude, that.longitude) && Objects.equals(latitude, that.latitude) && Objects.equals(intensity, that.intensity);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, longitude, latitude, intensity, status);
+        return Objects.hash(id, longitude, latitude, intensity);
     }
 
     public Collection<AlertEntity> getAlertsById() {

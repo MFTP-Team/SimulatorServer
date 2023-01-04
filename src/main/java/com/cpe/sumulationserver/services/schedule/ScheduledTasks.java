@@ -16,6 +16,6 @@ public class ScheduledTasks {
 
     @Scheduled(cron = "*/5 * * * * *")
     public void updateEvery5Seconds() {
-        log.info("The time is now {}", dateFormat.format(new Date()));
+        //log.info("The time is now {}", dateFormat.format(new Date()));
     }
 }
