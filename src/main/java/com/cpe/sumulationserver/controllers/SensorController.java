@@ -2,6 +2,9 @@ package com.cpe.sumulationserver.controllers;
 
 import com.cpe.sumulationserver.model.SensorEntity;
 import com.cpe.sumulationserver.services.SensorService;
+
+import mil.nga.sf.geojson.FeatureCollection;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +15,12 @@ public class SensorController {
 
     public SensorController(SensorService sensorService) {
         this.sensorService = sensorService;
+    }
+
+    @CrossOrigin("*")
+    @GetMapping("/geo")
+    private ResponseEntity<FeatureCollection> getStationGeo() {
+        return ResponseEntity.ok(sensorService.getAllSensorsGeo());
     }
 
     @PostMapping("/add")

@@ -4,6 +4,8 @@ import com.cpe.sumulationserver.model.FireEntity;
 import com.cpe.sumulationserver.model.SensorEntity;
 import com.cpe.sumulationserver.repository.SensorRepository;
 import com.cpe.sumulationserver.util.CoordinateUtil;
+
+import jakarta.websocket.Session;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -21,6 +23,10 @@ import org.h2.util.json.JSONString;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
+import mil.nga.sf.geojson.Feature;
+import mil.nga.sf.geojson.FeatureCollection;
+import mil.nga.sf.geojson.Polygon;
+import mil.nga.sf.geojson.Position;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -62,6 +68,34 @@ public class SensorService {
 
     public SensorEntity editSensor(SensorEntity sensorEntity) {
         return this.sensorRepository.save(sensorEntity);
+    }
+
+    public FeatureCollection getAllSensorsGeo() {
+        List<SensorEntity> list = this.sensorRepository.findAll();
+        FeatureCollection featureCollection = new FeatureCollection();
+        for (SensorEntity sensor : list) {
+            Feature feature = new Feature();
+            Map<String, Object> properties = new HashMap<String, Object>();
+            Polygon geometry = new Polygon();
+
+            List<Position> positions = new ArrayList<Position>();
+            Integer NUM_POINTS = 10;
+            for (int i = 0; i < NUM_POINTS; i++) {
+                double angle = 360.0 / NUM_POINTS * i;
+                double latitude = sensor.getLatitude() + sensor.getRadius() * Math.cos(Math.toRadians(angle));
+                double longitude = sensor.getLongitude() + sensor.getRadius() * Math.sin(Math.toRadians(angle));
+                positions.add(new Position(latitude, longitude));
+            }
+            List<List<Position>> cord = new ArrayList<>();
+            cord.add(positions);
+            geometry.setCoordinates(cord);
+            properties.put("id", sensor.getId());
+            properties.put("type", "SENSOR");
+            feature.setGeometry(geometry);
+            feature.setProperties(properties);
+            featureCollection.addFeature(feature);
+        }
+        return featureCollection;
     }
 
     public void triggerFire(FireEntity fire) {
