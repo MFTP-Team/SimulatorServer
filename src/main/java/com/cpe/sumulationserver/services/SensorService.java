@@ -4,6 +4,7 @@ import com.cpe.sumulationserver.model.FireEntity;
 import com.cpe.sumulationserver.model.SensorEntity;
 import com.cpe.sumulationserver.repository.SensorRepository;
 import com.cpe.sumulationserver.util.CoordinateUtil;
+import com.cpe.sumulationserver.util.GeoJsonUtil;
 
 import jakarta.websocket.Session;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.geotools.geometry.jts.FactoryFinder;
 import org.geotools.geometry.jts.JTSFactoryFinder;
+import org.h2.util.geometry.GeoJsonUtils;
 import org.h2.util.json.JSONString;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
@@ -70,30 +72,22 @@ public class SensorService {
         return this.sensorRepository.save(sensorEntity);
     }
 
-    public FeatureCollection getAllSensorsGeo() {
+    public FeatureCollection getAllSensorsGeoPoint() {
         List<SensorEntity> list = this.sensorRepository.findAll();
         FeatureCollection featureCollection = new FeatureCollection();
         for (SensorEntity sensor : list) {
-            Feature feature = new Feature();
-            Map<String, Object> properties = new HashMap<String, Object>();
-            Polygon geometry = new Polygon();
+            Feature pointFeature = GeoJsonUtil.getPointFromSensor(sensor);
+            featureCollection.addFeature(pointFeature);
+        }
+        return featureCollection;
+    }
 
-            List<Position> positions = new ArrayList<Position>();
-            Integer NUM_POINTS = 10;
-            for (int i = 0; i < NUM_POINTS; i++) {
-                double angle = 360.0 / NUM_POINTS * i;
-                double latitude = sensor.getLatitude() + sensor.getRadius() * Math.cos(Math.toRadians(angle));
-                double longitude = sensor.getLongitude() + sensor.getRadius() * Math.sin(Math.toRadians(angle));
-                positions.add(new Position(latitude, longitude));
-            }
-            List<List<Position>> cord = new ArrayList<>();
-            cord.add(positions);
-            geometry.setCoordinates(cord);
-            properties.put("id", sensor.getId());
-            properties.put("type", "SENSOR");
-            feature.setGeometry(geometry);
-            feature.setProperties(properties);
-            featureCollection.addFeature(feature);
+    public FeatureCollection getAllSensorsGeoPolygon() {
+        List<SensorEntity> list = this.sensorRepository.findAll();
+        FeatureCollection featureCollection = new FeatureCollection();
+        for (SensorEntity sensor : list) {
+            Feature polygonFeature = GeoJsonUtil.getPolygonFromSensor(sensor);
+            featureCollection.addFeature(polygonFeature);
         }
         return featureCollection;
     }

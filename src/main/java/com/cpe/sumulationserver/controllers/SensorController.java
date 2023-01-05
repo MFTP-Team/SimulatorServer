@@ -18,9 +18,15 @@ public class SensorController {
     }
 
     @CrossOrigin("*")
-    @GetMapping("/geo")
-    private ResponseEntity<FeatureCollection> getStationGeo() {
-        return ResponseEntity.ok(sensorService.getAllSensorsGeo());
+    @GetMapping("/geo/polygon")
+    private ResponseEntity<FeatureCollection> getStationGeoPolygon() {
+        return ResponseEntity.ok(sensorService.getAllSensorsGeoPolygon());
+    }
+
+    @CrossOrigin("*")
+    @GetMapping("/geo/point")
+    private ResponseEntity<FeatureCollection> getStationGeoPoint() {
+        return ResponseEntity.ok(sensorService.getAllSensorsGeoPoint());
     }
 
     @PostMapping("/add")
@@ -32,7 +38,7 @@ public class SensorController {
     public void deletesensor(@PathVariable("id") int sensorId) {
         sensorService.deleteSensor(sensorId);
     }
-
+    @CrossOrigin("*")
     @GetMapping("/get/{id}")
     public ResponseEntity<SensorEntity> getsensor(@PathVariable("id") int sensorId) {
         return ResponseEntity.ok(sensorService.getSensor(sensorId));
