@@ -60,8 +60,8 @@ public class SensorService {
         return this.sensorRepository.save(sensorEntity);
     }
 
-    public void deleteSensor(int sensorId) {
-        this.sensorRepository.deleteById(sensorId);
+    public SensorEntity deleteSensor(int sensorId) {
+        return this.sensorRepository.deleteById(sensorId);
     }
 
     public SensorEntity getSensor(int sensorId) {

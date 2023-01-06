@@ -31,11 +31,13 @@ public class TruckController {
         truckService.addTruck(truckEntity);
     }
 
+    @CrossOrigin("*")
     @PutMapping("/edit")
     public void editTruck(@RequestBody TruckEntity truckEntity) {
         truckService.saveTruck(truckEntity);
     }
 
+    @CrossOrigin("*")
     @DeleteMapping("/delete/{id}")
     public void deleteTruck(@PathVariable("id") int truckId) {
         truckService.deleteTruck(truckId);

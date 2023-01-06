@@ -34,18 +34,20 @@ public class SensorController {
         return ResponseEntity.ok(sensorService.addSensor(sensorEntity));
     }
 
+    @CrossOrigin("*")
     @DeleteMapping("/delete/{id}")
-    public void deletesensor(@PathVariable("id") int sensorId) {
-        sensorService.deleteSensor(sensorId);
+    public ResponseEntity<SensorEntity> deleteSensor(@PathVariable("id") int sensorId) {
+        return ResponseEntity.ok(sensorService.deleteSensor(sensorId));
     }
     @CrossOrigin("*")
     @GetMapping("/get/{id}")
-    public ResponseEntity<SensorEntity> getsensor(@PathVariable("id") int sensorId) {
+    public ResponseEntity<SensorEntity> getSensor(@PathVariable("id") int sensorId) {
         return ResponseEntity.ok(sensorService.getSensor(sensorId));
     }
 
+    @CrossOrigin("*")
     @PutMapping("/edit")
-    public ResponseEntity<SensorEntity> editsensor(@RequestBody SensorEntity sensorEntity) {
+    public ResponseEntity<SensorEntity> editSensor(@RequestBody SensorEntity sensorEntity) {
         return ResponseEntity.ok(sensorService.editSensor(sensorEntity));
     }
 }

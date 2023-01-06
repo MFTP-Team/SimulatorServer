@@ -34,6 +34,7 @@ public class FireController {
         return ResponseEntity.ok(fireService.addFire(fireEntity));
     }
 
+    @CrossOrigin("*")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deletefire(@PathVariable("id") int fireId) {
         fireService.deleteFire(fireId);
@@ -46,6 +47,7 @@ public class FireController {
         return ResponseEntity.ok(fireService.getFire(fireId));
     }
 
+    @CrossOrigin("*")
     @PutMapping("/edit")
     public ResponseEntity<FireEntity> editFire(@RequestBody FireEntity fireEntity) {
         return ResponseEntity.ok(fireService.editFire(fireEntity));
