@@ -1,5 +1,7 @@
 package com.cpe.sumulationserver.model;
 
+import java.util.Collection;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -19,6 +21,9 @@ public class SensorEntity {
     @Basic
     @Column(name = "radius")
     private Integer radius;
+
+    @OneToMany(mappedBy = "idSensor")
+    private Collection<AlertEntity> alertsById;
 
     public Integer getId() {
         return id;
@@ -50,5 +55,13 @@ public class SensorEntity {
 
     public void setRadius(Integer radius) {
         this.radius = radius;
+    }
+
+    public Collection<AlertEntity> getAlertsById() {
+        return alertsById;
+    }
+
+    public void setAlertsById(Collection<AlertEntity> alertsById) {
+        this.alertsById = alertsById;
     }
 }

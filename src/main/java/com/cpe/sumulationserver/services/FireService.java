@@ -2,7 +2,12 @@ package com.cpe.sumulationserver.services;
 
 import com.cpe.sumulationserver.model.FireEntity;
 import com.cpe.sumulationserver.repository.FireRepository;
+import com.cpe.sumulationserver.util.GeoJsonUtil;
+
 import lombok.extern.slf4j.Slf4j;
+import mil.nga.sf.geojson.Feature;
+import mil.nga.sf.geojson.FeatureCollection;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,5 +44,25 @@ public class FireService {
 
     public List<FireEntity> getFires() {
         return this.fireRepository.findAll();
+    }
+
+    public FeatureCollection getAllFiresGeoPoint() {
+        List<FireEntity> list = this.fireRepository.findAll();
+        FeatureCollection featureCollection = new FeatureCollection();
+        for (FireEntity fire : list) {
+            Feature pointFeature = GeoJsonUtil.getPointFromFire(fire);
+            featureCollection.addFeature(pointFeature);
+        }
+        return featureCollection;
+    }
+
+    public FeatureCollection getAllFiresGeoPolygon() {
+        List<FireEntity> list = this.fireRepository.findAll();
+        FeatureCollection featureCollection = new FeatureCollection();
+        for (FireEntity fire : list) {
+            Feature polygonFeature = GeoJsonUtil.getPolygonFromFire(fire);
+            featureCollection.addFeature(polygonFeature);
+        }
+        return featureCollection;
     }
 }

@@ -2,6 +2,9 @@ package com.cpe.sumulationserver.controllers;
 
 import com.cpe.sumulationserver.model.TruckEntity;
 import com.cpe.sumulationserver.services.TruckService;
+
+import mil.nga.sf.geojson.FeatureCollection;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.function.EntityResponse;
@@ -9,12 +12,18 @@ import org.springframework.web.servlet.function.EntityResponse;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/intervention")
+@RequestMapping("/api/truck")
 public class TruckController {
     private final TruckService truckService;
 
     public TruckController(TruckService truckService) {
         this.truckService = truckService;
+    }
+
+    @CrossOrigin("*")
+    @GetMapping("/geo/point")
+    private ResponseEntity<FeatureCollection> getTrucksGeoPoint() {
+        return ResponseEntity.ok(truckService.getAllTrucksGeoPoint());
     }
 
     @PostMapping("/add")
@@ -37,8 +46,9 @@ public class TruckController {
         return ResponseEntity.ok(truckService.getTrucks());
     }
 
+    @CrossOrigin("*")
     @GetMapping("/get/{id}")
-    public void getTruck(@PathVariable("id") int truckId) {
-        truckService.getTruck(truckId);
+    public ResponseEntity<TruckEntity> getTruck(@PathVariable("id") int truckId) {
+        return ResponseEntity.ok(truckService.getTruck(truckId));
     }
 }

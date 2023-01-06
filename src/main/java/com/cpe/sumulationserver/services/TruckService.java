@@ -2,6 +2,11 @@ package com.cpe.sumulationserver.services;
 
 import com.cpe.sumulationserver.model.TruckEntity;
 import com.cpe.sumulationserver.repository.TruckRepository;
+import com.cpe.sumulationserver.util.GeoJsonUtil;
+
+import mil.nga.sf.geojson.Feature;
+import mil.nga.sf.geojson.FeatureCollection;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,5 +36,15 @@ public class TruckService {
 
     public TruckEntity addTruck(TruckEntity truckEntity) {
         return this.truckRepository.save(truckEntity);
+    }
+
+    public FeatureCollection getAllTrucksGeoPoint() {
+        List<TruckEntity> list = this.truckRepository.findAll();
+        FeatureCollection featureCollection = new FeatureCollection();
+        for (TruckEntity truck : list) {
+            Feature pointFeature = GeoJsonUtil.getPointFromTruck(truck);
+            featureCollection.addFeature(pointFeature);
+        }
+        return featureCollection;
     }
 }

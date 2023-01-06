@@ -20,9 +20,6 @@ public class TruckEntity {
     @Basic
     @Column(name = "power")
     private Integer power;
-    @Basic
-    @Column(name = "id_station")
-    private Integer idStation;
 
     public Integer getId() {
         return id;
@@ -56,24 +53,16 @@ public class TruckEntity {
         this.power = power;
     }
 
-    public Integer getIdStation() {
-        return idStation;
-    }
-
-    public void setIdStation(Integer idStation) {
-        this.idStation = idStation;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TruckEntity that = (TruckEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(longitude, that.longitude) && Objects.equals(latitude, that.latitude) && Objects.equals(power, that.power) && Objects.equals(idStation, that.idStation);
+        return Objects.equals(id, that.id) && Objects.equals(longitude, that.longitude) && Objects.equals(latitude, that.latitude) && Objects.equals(power, that.power);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, longitude, latitude, power, idStation);
+        return Objects.hash(id, longitude, latitude, power);
     }
 }

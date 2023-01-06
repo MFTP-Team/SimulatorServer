@@ -1,8 +1,6 @@
 package com.cpe.sumulationserver.model;
 
 import jakarta.persistence.*;
-
-import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -21,10 +19,7 @@ public class FireEntity {
     @Basic
     @Column(name = "intensity")
     private Integer intensity;
-    @OneToMany(mappedBy = "idFire")
-    private Collection<AlertEntity> alertsById;
-    @OneToMany(mappedBy = "idFire")
-    private Collection<InterventionEntity> interventionsById;
+
 
     public Integer getId() {
         return id;
@@ -69,21 +64,5 @@ public class FireEntity {
     @Override
     public int hashCode() {
         return Objects.hash(id, longitude, latitude, intensity);
-    }
-
-    public Collection<AlertEntity> getAlertsById() {
-        return alertsById;
-    }
-
-    public void setAlertsById(Collection<AlertEntity> alertsById) {
-        this.alertsById = alertsById;
-    }
-
-    public Collection<InterventionEntity> getInterventionsById() {
-        return interventionsById;
-    }
-
-    public void setInterventionsById(Collection<InterventionEntity> interventionsById) {
-        this.interventionsById = interventionsById;
     }
 }

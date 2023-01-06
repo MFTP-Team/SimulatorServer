@@ -26,8 +26,8 @@ public class AlertEntity {
     private Integer intensity;
 
     @Basic
-    @Column(name = "id_fire")
-    private Integer idFire;
+    @Column(name = "id_sensor")
+    private Integer idSensor;
 
     public Integer getId() {
         return id;

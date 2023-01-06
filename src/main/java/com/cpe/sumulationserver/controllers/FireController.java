@@ -2,6 +2,9 @@ package com.cpe.sumulationserver.controllers;
 
 import com.cpe.sumulationserver.model.FireEntity;
 import com.cpe.sumulationserver.services.FireService;
+
+import mil.nga.sf.geojson.FeatureCollection;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +15,18 @@ public class FireController {
 
     public FireController(FireService fireService) {
         this.fireService = fireService;
+    }
+
+    @CrossOrigin("*")
+    @GetMapping("/geo/polygon")
+    private ResponseEntity<FeatureCollection> getStationGeoPolygon() {
+        return ResponseEntity.ok(fireService.getAllFiresGeoPolygon());
+    }
+
+    @CrossOrigin("*")
+    @GetMapping("/geo/point")
+    private ResponseEntity<FeatureCollection> getStationGeoPoint() {
+        return ResponseEntity.ok(fireService.getAllFiresGeoPoint());
     }
 
     @PostMapping("/add")
@@ -25,6 +40,7 @@ public class FireController {
         return ResponseEntity.noContent().build();
     }
 
+    @CrossOrigin("*")
     @GetMapping("/get/{id}")
     public ResponseEntity<FireEntity> getFire(@PathVariable("id") int fireId) {
         return ResponseEntity.ok(fireService.getFire(fireId));
