@@ -1,5 +1,8 @@
 package com.cpe.sumulationserver.util;
 
+import com.cpe.sumulationserver.model.FireEntity;
+import com.cpe.sumulationserver.model.SensorEntity;
+
 public class CoordinateUtil {
 
     /**
@@ -23,5 +26,9 @@ public class CoordinateUtil {
             dist = dist * 0.8684;
         }
         return (dist);
+    }
+
+    public static double distance(SensorEntity sensor, FireEntity fire) {
+        return distance(sensor.getLatitude(), sensor.getLongitude(), fire.getLatitude(), fire.getLongitude(), 'K');
     }
 }

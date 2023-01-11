@@ -58,7 +58,7 @@ public class GeoJsonUtil {
         Integer NUM_POINTS = 30;
         for (int i = 0; i < NUM_POINTS; i++) {
             double angle = 360.0 / NUM_POINTS * i;
-            double latitude = fire.getLatitude() + 0.00001*fire.getIntensity()* Math.cos(Math.toRadians(angle));
+            double latitude = fire.getLatitude() + 0.00001*fire.getIntensity() * Math.cos(Math.toRadians(angle));
             double longitude = fire.getLongitude() + 0.00001*fire.getIntensity() * Math.sin(Math.toRadians(angle));
             positions.add(new Position(latitude, longitude));
         }
