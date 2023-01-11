@@ -3,6 +3,7 @@ package com.cpe.sumulationserver.services;
 import com.cpe.sumulationserver.model.FireEntity;
 import com.cpe.sumulationserver.model.SensorEntity;
 import com.cpe.sumulationserver.repository.SensorRepository;
+import com.cpe.sumulationserver.util.Constantes;
 import com.cpe.sumulationserver.util.CoordinateUtil;
 import com.cpe.sumulationserver.util.GeoJsonUtil;
 
@@ -100,7 +101,8 @@ public class SensorService {
             // Le sensor est-il dans le rayon du feu ?
             double distance = CoordinateUtil.distance(sensor, fire);
             log.info("distance: {}", distance);
-            if (distance < sensor.getRadius()) {
+            Double sensorDistance = sensor.getRadius() * Constantes.RADIUS_COEFFICIENT;
+            if (distance < sensorDistance) {
                 // les deux rayons se touchent
                 log.info("Sensor {} is in the fire radius", sensor.getId());
                 // Le sensor est dans le rayon du feu
