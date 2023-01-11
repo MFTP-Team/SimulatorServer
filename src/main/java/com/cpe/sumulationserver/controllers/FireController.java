@@ -29,6 +29,7 @@ public class FireController {
         return ResponseEntity.ok(fireService.getAllFiresGeoPoint());
     }
 
+    @CrossOrigin("*")
     @PostMapping("/add")
     public ResponseEntity<FireEntity> addFire(@RequestBody FireEntity fireEntity) {
         return ResponseEntity.ok(fireService.addFire(fireEntity));

@@ -29,6 +29,7 @@ public class SensorController {
         return ResponseEntity.ok(sensorService.getAllSensorsGeoPoint());
     }
 
+    @CrossOrigin("*")
     @PostMapping("/add")
     public ResponseEntity<SensorEntity> addSensor(@RequestBody SensorEntity sensorEntity) {
         return ResponseEntity.ok(sensorService.addSensor(sensorEntity));
