@@ -112,6 +112,7 @@ public class SensorService {
                     JSONObject jsonData = new JSONObject();
                     jsonData.put("latitude", sensor.getLatitude());
                     jsonData.put("longitude", sensor.getLongitude());
+                    jsonData.put("intensity", "1");
                     CloseableHttpClient httpClient = HttpClients.createDefault();
                     HttpPost httpPost = new HttpPost(PythonServerURL);
                     StringEntity entity = new StringEntity(jsonData.toString());
