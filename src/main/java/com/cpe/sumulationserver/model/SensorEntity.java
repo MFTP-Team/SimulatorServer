@@ -1,9 +1,8 @@
 package com.cpe.sumulationserver.model;
 
-import java.util.Collection;
-
-import com.cpe.sumulationserver.util.Constantes;
 import jakarta.persistence.*;
+
+import java.util.Collection;
 
 @Entity
 @Table(name = "sensor", schema = "public", catalog = "simulator")

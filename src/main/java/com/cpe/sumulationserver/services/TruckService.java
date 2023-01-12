@@ -3,10 +3,8 @@ package com.cpe.sumulationserver.services;
 import com.cpe.sumulationserver.model.TruckEntity;
 import com.cpe.sumulationserver.repository.TruckRepository;
 import com.cpe.sumulationserver.util.GeoJsonUtil;
-
 import mil.nga.sf.geojson.Feature;
 import mil.nga.sf.geojson.FeatureCollection;
-
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,6 +36,10 @@ public class TruckService {
         return this.truckRepository.save(truckEntity);
     }
 
+    /**
+     * Récupère tous les camions sous forme de FeatureCollection à partir de points
+     * @return
+     */
     public FeatureCollection getAllTrucksGeoPoint() {
         List<TruckEntity> list = this.truckRepository.findAll();
         FeatureCollection featureCollection = new FeatureCollection();

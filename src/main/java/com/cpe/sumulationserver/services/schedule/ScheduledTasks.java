@@ -6,7 +6,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @Component
 public class ScheduledTasks {
@@ -17,5 +16,8 @@ public class ScheduledTasks {
     @Scheduled(cron = "*/5 * * * * *")
     public void updateEvery5Seconds() {
         //log.info("The time is now {}", dateFormat.format(new Date()));
+        // TODO : Ici on vient mettre à jour la position des camions &/ou des pompiers
+        // On vient aussi dire si un camion est dans le rayon d'un feu celui-ci réduit en intensité jusqu'à
+        // s'éteindre
     }
 }

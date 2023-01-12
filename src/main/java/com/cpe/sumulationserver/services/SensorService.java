@@ -6,46 +6,25 @@ import com.cpe.sumulationserver.repository.SensorRepository;
 import com.cpe.sumulationserver.util.Constantes;
 import com.cpe.sumulationserver.util.CoordinateUtil;
 import com.cpe.sumulationserver.util.GeoJsonUtil;
-
-import jakarta.websocket.Session;
 import lombok.extern.slf4j.Slf4j;
+import mil.nga.sf.geojson.Feature;
+import mil.nga.sf.geojson.FeatureCollection;
 import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
-import org.geotools.geometry.jts.FactoryFinder;
-import org.geotools.geometry.jts.JTSFactoryFinder;
-import org.h2.util.geometry.GeoJsonUtils;
-import org.h2.util.json.JSONString;
 import org.json.JSONObject;
-import org.locationtech.jts.geom.Coordinate;
-import org.locationtech.jts.geom.GeometryFactory;
-import org.locationtech.jts.geom.Point;
-import mil.nga.sf.geojson.Feature;
-import mil.nga.sf.geojson.FeatureCollection;
-import mil.nga.sf.geojson.Polygon;
-import mil.nga.sf.geojson.Position;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.io.*;
-import java.net.HttpURLConnection;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
-import java.net.URL;
-import java.net.http.HttpClient;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Slf4j
 @Service
@@ -75,6 +54,10 @@ public class SensorService {
         return this.sensorRepository.save(sensorEntity);
     }
 
+    /**
+     * Récupère tous les capteurs sous forme de FeatureCollection à partir de points
+     * @return FeatureCollection
+     */
     public FeatureCollection getAllSensorsGeoPoint() {
         List<SensorEntity> list = this.sensorRepository.findAll();
         FeatureCollection featureCollection = new FeatureCollection();
@@ -85,6 +68,10 @@ public class SensorService {
         return featureCollection;
     }
 
+    /**
+     * Récupère tous les capteurs sous forme de FeatureCollection à partir de polygones
+     * @return FeatureCollection
+     */
     public FeatureCollection getAllSensorsGeoPolygon() {
         List<SensorEntity> list = this.sensorRepository.findAll();
         FeatureCollection featureCollection = new FeatureCollection();
@@ -95,6 +82,11 @@ public class SensorService {
         return featureCollection;
     }
 
+    /**
+     * Méthode d'enclanchenement d'un feu
+     * Envoi le signal aux capteur de la simulation
+     * @param fire
+     */
     public void triggerFire(FireEntity fire) {
         log.info("Triggering fire");
         this.sensorRepository.findAll().forEach(sensor -> {

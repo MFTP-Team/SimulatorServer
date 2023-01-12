@@ -1,20 +1,28 @@
 package com.cpe.sumulationserver.util;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.cpe.sumulationserver.model.FireEntity;
 import com.cpe.sumulationserver.model.SensorEntity;
 import com.cpe.sumulationserver.model.TruckEntity;
-
 import mil.nga.sf.geojson.Feature;
 import mil.nga.sf.geojson.Point;
 import mil.nga.sf.geojson.Polygon;
 import mil.nga.sf.geojson.Position;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Classe statique permettant la manipulation de forme géométrique pour l'affichage du front
+ */
 public class GeoJsonUtil {
+    /**
+     * Récupère sous forme de polygon la forme d'un Sensor
+     * La création de la forme se fait à partir d'une liste dxe point représentant le radius d'un capteur
+     * @param sensor
+     * @return
+     */
 
     public static Feature getPolygonFromSensor(SensorEntity sensor){
         Feature feature = new Feature();
@@ -38,6 +46,11 @@ public class GeoJsonUtil {
         return feature;
     }
 
+    /**
+     * Récupère sous forme de point la position d'un capteur
+     * @param sensor
+     * @return
+     */
     public static Feature getPointFromSensor(SensorEntity sensor){
         Feature feature = new Feature();
         Map<String, Object> properties = new HashMap<String, Object>();
@@ -50,6 +63,11 @@ public class GeoJsonUtil {
         return feature;
     }
 
+    /**
+     * Récupère sous forme de polygon la position d'un Fire
+     * @param fire
+     * @return
+     */
     public static Feature getPolygonFromFire(FireEntity fire){
         Feature feature = new Feature();
         Map<String, Object> properties = new HashMap<String, Object>();
@@ -72,6 +90,11 @@ public class GeoJsonUtil {
         return feature;
     }
 
+    /**
+     * Récupère sous forme de point la position d'un feu
+     * @param fire
+     * @return
+     */
     public static Feature getPointFromFire(FireEntity fire){
         Feature feature = new Feature();
         Map<String, Object> properties = new HashMap<String, Object>();
@@ -84,6 +107,11 @@ public class GeoJsonUtil {
         return feature;
     }
 
+    /**
+     * Récupère sous forme de point la position d'un camion
+     * @param truck
+     * @return
+     */
     public static Feature getPointFromTruck(TruckEntity truck){
         Feature feature = new Feature();
         Map<String, Object> properties = new HashMap<String, Object>();
