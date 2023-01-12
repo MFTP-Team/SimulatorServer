@@ -26,6 +26,7 @@ public class TruckController {
         return ResponseEntity.ok(truckService.getAllTrucksGeoPoint());
     }
 
+    @CrossOrigin("*")
     @PostMapping("/add")
     public void addTruck(@RequestBody TruckEntity truckEntity) {
         truckService.addTruck(truckEntity);

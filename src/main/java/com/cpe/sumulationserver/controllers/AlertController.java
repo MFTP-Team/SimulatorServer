@@ -2,6 +2,9 @@ package com.cpe.sumulationserver.controllers;
 
 import com.cpe.sumulationserver.model.AlertEntity;
 import com.cpe.sumulationserver.services.AlertService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,5 +36,11 @@ public class AlertController {
     @GetMapping("/get/{id}")
     public void getAlert(@PathVariable("id") int alertId) {
         alertService.getAlert(alertId);
+    }
+
+    @CrossOrigin("*")
+    @GetMapping("/get")
+    public ResponseEntity<List<AlertEntity>> getAlert() {
+        return ResponseEntity.ok(alertService.getAlerts());
     }
 }
