@@ -3,11 +3,9 @@ package com.cpe.sumulationserver.services;
 import com.cpe.sumulationserver.model.FireEntity;
 import com.cpe.sumulationserver.repository.FireRepository;
 import com.cpe.sumulationserver.util.GeoJsonUtil;
-
 import lombok.extern.slf4j.Slf4j;
 import mil.nga.sf.geojson.Feature;
 import mil.nga.sf.geojson.FeatureCollection;
-
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,6 +44,10 @@ public class FireService {
         return this.fireRepository.findAll();
     }
 
+    /**
+     * Récupère tous les feux sous forme de FeatureCollection à partir de points
+     * @return FeatureCollection
+     */
     public FeatureCollection getAllFiresGeoPoint() {
         List<FireEntity> list = this.fireRepository.findAll();
         FeatureCollection featureCollection = new FeatureCollection();
@@ -56,6 +58,10 @@ public class FireService {
         return featureCollection;
     }
 
+    /**
+     * Récupère tous les feux sous forme de FeatureCollection à partir de polygones
+     * @return FeatureCollection
+     */
     public FeatureCollection getAllFiresGeoPolygon() {
         List<FireEntity> list = this.fireRepository.findAll();
         FeatureCollection featureCollection = new FeatureCollection();

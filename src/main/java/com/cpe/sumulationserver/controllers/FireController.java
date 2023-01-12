@@ -2,13 +2,12 @@ package com.cpe.sumulationserver.controllers;
 
 import com.cpe.sumulationserver.model.FireEntity;
 import com.cpe.sumulationserver.services.FireService;
-
 import mil.nga.sf.geojson.FeatureCollection;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/api/fire")
 public class FireController {
     private final FireService fireService;

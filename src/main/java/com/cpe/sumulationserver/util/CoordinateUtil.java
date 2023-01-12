@@ -1,5 +1,11 @@
 package com.cpe.sumulationserver.util;
 
+import com.cpe.sumulationserver.model.FireEntity;
+import com.cpe.sumulationserver.model.SensorEntity;
+
+/**
+ * Classe statique servant d'utilitaire pour la manipulation de coordonnées géographique
+ */
 public class CoordinateUtil {
 
     /**
@@ -23,5 +29,15 @@ public class CoordinateUtil {
             dist = dist * 0.8684;
         }
         return (dist);
+    }
+
+    /**
+     * Fonction permettant de calculer la distance entre deux points de classe Sensor & Fire
+     * @param sensor
+     * @param fire
+     * @return
+     */
+    public static double distance(SensorEntity sensor, FireEntity fire) {
+        return distance(sensor.getLatitude(), sensor.getLongitude(), fire.getLatitude(), fire.getLongitude(), 'K');
     }
 }

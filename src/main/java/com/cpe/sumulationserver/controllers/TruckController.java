@@ -2,15 +2,13 @@ package com.cpe.sumulationserver.controllers;
 
 import com.cpe.sumulationserver.model.TruckEntity;
 import com.cpe.sumulationserver.services.TruckService;
-
 import mil.nga.sf.geojson.FeatureCollection;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.function.EntityResponse;
 
 import java.util.List;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/truck")
 public class TruckController {
